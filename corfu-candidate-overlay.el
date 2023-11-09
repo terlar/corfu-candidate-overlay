@@ -356,7 +356,9 @@ the end of word."
       ;; TODO: Not sure why it sometimes breaks with dabbrev backend. Need to investigate.
       (ignore-errors
         (corfu-complete))
-      (corfu-quit))))
+      (corfu-quit)
+      ;; Return `t' to indicate completion was done.
+      t)))
 
 ;;;###autoload
 (define-minor-mode corfu-candidate-overlay-mode
