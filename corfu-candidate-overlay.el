@@ -347,6 +347,8 @@ the end of word."
            (string=
             (corfu-candidate-overlay--get-overlay-property  'after-string)
             ""))
+      ;; Hide overlay before completion to avoid moment of duplicate text.
+      (corfu-candidate-overlay--hide)
       ;; basically we emulate normal corfu's popup completion
       ;; to have templates expanded as well.
       (corfu-insert)
