@@ -59,6 +59,11 @@
   :type '(repeat (choice regexp symbol))
   :group 'corfu)
 
+(defcustom corfu-candidate-overlay-no-message nil
+  "Non-nil means do not print any message when enabling/disabling mode."
+  :type 'boolean
+  :group 'corfu)
+
 (defface corfu-candidate-overlay-face
   '((((background light))
      :foreground "MistyRose4")
@@ -370,13 +375,15 @@ the end of word."
        ((not corfu-auto)
         (add-hook 'post-command-hook #'corfu-candidate-overlay--post-command)
         (add-hook 'pre-command-hook  #'corfu-candidate-overlay--pre-command)
-        (message "Enabled `corfu-candidate-overlay-mode'."))
+        (unless corfu-candidate-overlay-no-message
+          (message "Enabled `corfu-candidate-overlay-mode'.")))
        (t
         (message "`corfu-auto' enabled, `corfu-candidate-overlay-mode' requires `corfu-auto' to be set to `nil'.")))
     (progn
       (remove-hook 'post-command-hook #'corfu-candidate-overlay--post-command)
       (remove-hook 'pre-command-hook  #'corfu-candidate-overlay--pre-command)
-      (message "Disabled `corfu-candidate-overlay-mode'."))))
+      (unless corfu-candidate-overlay-no-message
+        (message "Disabled `corfu-candidate-overlay-mode'.")))))
 
 (provide 'corfu-candidate-overlay)
 ;;; corfu-candidate-overlay.el ends here
